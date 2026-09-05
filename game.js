@@ -23,6 +23,7 @@
     playerStyle: document.getElementById('player-style'),
     hintPre: document.getElementById('hint-pre'),
     hintBox: document.getElementById('hintbox'),
+    hintSummary: document.getElementById('hint-summary'),
     modal: document.getElementById('modal'),
     modalTitle: document.getElementById('modal-title'),
     modalStars: document.getElementById('modal-stars'),
@@ -158,6 +159,7 @@
     el.editor.value = state.code[level.id] != null ? state.code[level.id] : level.starter;
     el.hintPre.textContent = level.solution;
     el.hintBox.open = false;
+    updateHintLock();
     el.feedback.textContent = 'Match every dashed zone, then press Check.';
     document.getElementById('level-label').textContent = level.n + '. ' + level.title;
     applyAndValidate(true);
@@ -200,6 +202,7 @@
     if (result.pass) return win(level);
     state.fails[level.id] = (state.fails[level.id] || 0) + 1;
     saveState();
+    updateHintLock();
   }
 
   function starsFor(level) {
@@ -225,6 +228,15 @@
   function onNext() {
     el.modal.classList.remove('open');
     loadLevel(current + 1 < LEVELS.length ? current + 1 : 0);
+  }
+
+  function updateHintLock() {
+    var locked = (state.fails[LEVELS[current].id] || 0) < 2;
+    el.hintBox.classList.toggle('locked', locked);
+    if (locked) el.hintBox.open = false;
+    el.hintSummary.textContent = locked
+      ? '\uD83D\uDCA1 Hint \u2014 unlocks after 2 failed checks'
+      : '\uD83D\uDCA1 Show me how';
   }
 
   function renderStrip() {
@@ -283,6 +295,9 @@
   el.btnNext.addEventListener('click', onNext);
   document.getElementById('btn-stay').addEventListener('click', function () {
     el.modal.classList.remove('open');
+  });
+  el.hintSummary.addEventListener('click', function (e) {
+    if (el.hintBox.classList.contains('locked')) e.preventDefault();
   });
 
   var resizeTimer = null;

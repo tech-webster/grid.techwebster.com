@@ -130,6 +130,7 @@
     margin-top: 12px; min-height: 20px; font-size: 13.5px; color: var(--dim);
   }
   details#hintbox { margin-top: 10px; }
+  details#hintbox.locked summary { opacity: .55; cursor: not-allowed; }
   details#hintbox summary { cursor: pointer; color: var(--accent2); font-size: 13px; }
   details#hintbox pre {
     background: #141736; border: 1px dashed var(--line); border-radius: 10px;
@@ -203,7 +204,7 @@
       </div>
       <p id="feedback" aria-live="polite"></p>
       <details id="hintbox">
-        <summary>💡 Show me how</summary>
+        <summary id="hint-summary">💡 Show me how</summary>
         <pre id="hint-pre"></pre>
       </details>
     </section>
