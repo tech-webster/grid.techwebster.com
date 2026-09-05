@@ -100,7 +100,7 @@
   }
   .gz span { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: rgba(238, 240, 255, .55); }
   .gz.ok { border-color: var(--accent); background: rgba(6, 214, 160, .08); }
-  .gz.ok span { color: var(--accent); }
+  .gz.ok span { opacity: 0; } /* zone matched — the building's own label takes over, no double text */
 
   /* ---------- editor panel ---------- */
   .panel {
@@ -198,7 +198,7 @@
       <label for="editor" style="font-size:12px;color:var(--dim);">Your CSS</label>
       <textarea id="editor" spellcheck="false" aria-label="CSS editor"></textarea>
       <div class="btnrow">
-        <button class="action" id="btn-check">Check ▶</button>
+        <button class="action" id="btn-check" title="Shortcut: Ctrl/⌘ + Enter">Check ▶</button>
         <button class="action ghosty" id="btn-reset">Reset ↺</button>
       </div>
       <p id="feedback" aria-live="polite"></p>

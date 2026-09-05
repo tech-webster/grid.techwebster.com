@@ -332,8 +332,22 @@
     document.title = out.textContent.slice(0, 60);
   }
 
+  var params = new URLSearchParams(location.search);
   if (/\bselftest=1\b/.test(location.search)) {
     runSelftest();
+  } else if (params.get('demo')) {
+    // scripted demo state for screenshots: ?demo=<level#>&code=<css>
+    var demoIdx = Math.min(Math.max(parseInt(params.get('demo'), 10) - 1, 0), LEVELS.length - 1);
+    loadLevel(demoIdx);
+    if (params.get('code')) {
+      el.editor.value = decodeURIComponent(params.get('code'));
+    } else {
+      el.editor.value = LEVELS[current].solution;
+    }
+    var demoResult = applyAndValidate(false);
+    if (demoResult.pass) win(LEVELS[current]);
+  } else if (params.get('level')) {
+    loadLevel(Math.min(Math.max(parseInt(params.get('level'), 10) - 1, 0), LEVELS.length - 1));
   } else {
     loadLevel(Math.min(state.currentLevel || 0, LEVELS.length - 1));
   }
