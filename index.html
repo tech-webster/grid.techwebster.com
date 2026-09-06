@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GRIDVILLE — Learn CSS Grid by Building a City | TechWebster</title>
+<title>Learn CSS Grid — GRIDVILLE Game by TechWebster</title>
 <meta name="description" content="GRIDVILLE by TechWebster is a free interactive game that teaches CSS Grid. Solve 8 hands-on layout puzzles — grid-template-columns, fr units, gap, spans and areas — right in your browser.">
 <link rel="canonical" href="https://grid.techwebster.com/">
 <meta name="author" content="TechWebster">
@@ -13,20 +13,20 @@
 <meta name="keywords" content="learn CSS Grid, CSS Grid game, CSS Grid tutorial, interactive CSS learning, CSS Grid practice, grid-template-columns, fr units, TechWebster">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="TechWebster">
-<meta property="og:title" content="GRIDVILLE — Learn CSS Grid by Building a City | TechWebster">
+<meta property="og:title" content="Learn CSS Grid — GRIDVILLE Game by TechWebster">
 <meta property="og:description" content="Build a city. Master CSS Grid. A free interactive CSS Grid game by TechWebster with 8 hands-on layout puzzles.">
 <meta property="og:url" content="https://grid.techwebster.com/">
 <meta property="og:image" content="https://techwebster.com/opengraph-image">
 <meta property="og:image:alt" content="GRIDVILLE by TechWebster — Full-Stack Software Studio">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@TechWebster">
-<meta name="twitter:title" content="GRIDVILLE — Learn CSS Grid by Building a City | TechWebster">
+<meta name="twitter:title" content="Learn CSS Grid — GRIDVILLE Game by TechWebster">
 <meta name="twitter:description" content="Build a city. Master CSS Grid. A free interactive CSS Grid game by TechWebster.">
 <meta name="twitter:image" content="https://techwebster.com/opengraph-image">
 <meta name="twitter:image:alt" content="GRIDVILLE by TechWebster — Full-Stack Software Studio">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Cg%3E%3Crect x='11' y='11' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='26' y='11' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='41' y='11' width='12' height='12' rx='3' fill='%23ffd166'/%3E%3Crect x='11' y='26' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='26' y='26' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='41' y='26' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='11' y='41' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='26' y='41' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='41' y='41' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3C/g%3E%3C/svg%3E">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"GRIDVILLE","alternateName":"GRIDVILLE by TechWebster","url":"https://grid.techwebster.com/","applicationCategory":"EducationalApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0"},"inLanguage":"en","author":{"@type":"Organization","name":"TechWebster","url":"https://www.techwebster.com/"},"description":"GRIDVILLE is a free interactive game that teaches CSS Grid through 8 hands-on layout puzzles."},{"@type":"Organization","name":"TechWebster","url":"https://www.techwebster.com/","logo":"https://techwebster.com/logo.svg","sameAs":["https://www.facebook.com/people/Tech-Webster/61583475278777/","https://www.linkedin.com/company/tech-webster/","https://www.instagram.com/tech_webster","https://www.reddit.com/user/TechWebster/","https://dev.to/techwebster"]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.techwebster.com/#organization","name":"TechWebster","url":"https://www.techwebster.com/","logo":"https://techwebster.com/logo.svg","sameAs":["https://www.facebook.com/people/Tech-Webster/61583475278777/","https://www.linkedin.com/company/tech-webster/","https://www.instagram.com/tech_webster","https://www.reddit.com/user/TechWebster/","https://dev.to/techwebster"]},{"@type":"WebSite","@id":"https://grid.techwebster.com/#website","name":"GRIDVILLE by TechWebster","url":"https://grid.techwebster.com/","publisher":{"@id":"https://www.techwebster.com/#organization"}},{"@type":"WebApplication","@id":"https://grid.techwebster.com/#app","name":"GRIDVILLE","url":"https://grid.techwebster.com/#play","description":"GRIDVILLE is a free interactive game that teaches CSS Grid through 8 hands-on layout puzzles.","applicationCategory":"EducationalApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":"en","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://www.techwebster.com/#organization"}},{"@type":"WebPage","@id":"https://grid.techwebster.com/#webpage","url":"https://grid.techwebster.com/","name":"Learn CSS Grid — GRIDVILLE Game by TechWebster","isPartOf":{"@id":"https://grid.techwebster.com/#website"},"mainEntity":{"@id":"https://grid.techwebster.com/#app"}}]}
 </script>
 <style>
   :root {
@@ -210,7 +210,15 @@
   .gv-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
   .gv-stats { display: flex; gap: 10px 26px; justify-content: center; flex-wrap: wrap; color: var(--dim); font-size: 13.5px; font-weight: 700; }
   .gv-stats b { color: var(--accent); }
-  .gv-demo { max-width: 520px; margin: 36px auto 0; border: 3px solid var(--line); border-radius: var(--radius); padding: 14px; background: var(--bg2); display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 62px); grid-template-areas: "d-h d-h d-h" "d-n d-m d-a" "d-f d-f d-f"; }
+  .gv-topics { color: var(--ink); font-size: 15px; line-height: 2; margin: 0 auto 26px; }
+  .gv-topics code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #141736; border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; font-size: 13px; color: var(--accent2); white-space: nowrap; }
+  .gv-figure { max-width: 520px; margin: 36px auto 0; border: 3px solid var(--line); border-radius: var(--radius); background: var(--bg2); overflow: hidden; }
+  .gv-figbar { display: flex; justify-content: space-between; padding: 10px 16px; font-size: 11px; font-weight: 800; letter-spacing: 2px; color: var(--dim); border-bottom: 1px solid var(--line); }
+  .gv-figure figcaption { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--line); text-align: left; }
+  .gv-figure figcaption code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.6; color: #d6f5ff; }
+  .gv-figure figcaption code span { color: var(--accent); }
+  .gv-figlive { color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: 2px; white-space: nowrap; }
+  .gv-demo { margin: 0; border: 0; border-radius: 0; background: transparent; padding: 14px; display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 62px); grid-template-areas: "d-h d-h d-h" "d-n d-m d-a" "d-f d-f d-f"; }
   .gv-demo i { border-radius: 8px; font-style: normal; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; color: #12142b; }
   .gv-d-h { grid-area: d-h; background: #FF7F00; }
   .gv-d-n { grid-area: d-n; background: #118ab2; }
@@ -309,14 +317,19 @@
           <span class="gv-eyebrow">A TechWebster learning game</span>
           <h1 id="gv-title">Learn <span class="hl">CSS Grid</span> by Building a City</h1>
           <p class="gv-sub">GRIDVILLE is a free, interactive CSS Grid game. Write real CSS to raise bakeries, towers and town squares across 8 hands-on layout puzzles — no setup, no sign-up, right in your browser.</p>
+          <p class="gv-topics"><code>grid-template-columns</code> <code>fr units</code> <code>gap</code> <code>span</code> <code>areas</code><br>One city to put them all into practice.</p>
           <div class="gv-cta">
             <a class="gv-btn" href="#play" data-play>▶ Play the game</a>
             <a class="gv-btn-ghost" href="#gv-levels">Browse the 8 levels</a>
           </div>
           <div class="gv-stats"><span><b>8</b> hands-on puzzles</span><span><b>0</b> setup — runs in your browser</span><span><b>Free</b> forever</span></div>
-          <div class="gv-demo" aria-hidden="true">
-            <i class="gv-d-h">Header</i><i class="gv-d-n">Nav</i><i class="gv-d-m">Main</i><i class="gv-d-a">Aside</i><i class="gv-d-f">Footer</i>
-          </div>
+          <figure class="gv-figure" aria-label="GRIDVILLE preview: a city block built with CSS Grid">
+            <div class="gv-figbar"><span>GRIDVILLE</span><span>01 / 08</span></div>
+            <div class="gv-demo" aria-hidden="true">
+              <i class="gv-d-h">Header</i><i class="gv-d-n">Nav</i><i class="gv-d-m">Main</i><i class="gv-d-a">Aside</i><i class="gv-d-f">Footer</i>
+            </div>
+            <figcaption><code><span>display</span>: grid;<br><span>grid-template-columns</span>: repeat(3, 1fr);</code><span class="gv-figlive">Your city awaits ↗</span></figcaption>
+          </figure>
         </div>
       </section>
       <section class="gv-section" aria-labelledby="gv-how">
