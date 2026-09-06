@@ -68,6 +68,8 @@
   .topbar .progress { margin-left: auto; font-size: 13px; color: var(--accent); font-weight: 700; }
   .topbar .brand { color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
   .topbar .brand:hover { text-decoration: underline; }
+  .topbar .home-link { color: var(--dim); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+  .topbar .home-link:hover { color: var(--accent); }
 
   /* ---------- level strip ---------- */
   #level-strip { display: flex; gap: 8px; flex-wrap: wrap; padding: 6px 24px 14px; }
@@ -192,6 +194,52 @@
     padding: 10px; font-size: 12.5px; overflow-x: auto;
   }
 
+  /* ---------- landing ---------- */
+  #view-game[hidden], #view-landing[hidden] { display: none !important; }
+  .gv-wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+  .gv-hero { text-align: center; padding: 76px 24px 44px; max-width: 880px; margin: 0 auto; }
+  .gv-eyebrow { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; margin-bottom: 22px; }
+  .gv-hero h1 { margin: 0 0 16px; font-size: clamp(34px, 6vw, 58px); line-height: 1.08; font-weight: 900; letter-spacing: -1px; }
+  .gv-hero h1 .hl { color: var(--accent2); text-shadow: 0 0 26px rgba(255, 209, 102, .3); }
+  .gv-sub { color: var(--dim); font-size: 16.5px; line-height: 1.65; margin: 0 auto 28px; max-width: 640px; }
+  .gv-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 26px; }
+  .gv-btn { display: inline-block; background: var(--accent); color: #12142b; font-weight: 900; font-size: 16px; padding: 14px 30px; border-radius: 999px; text-decoration: none; transition: filter .15s ease, transform .12s ease; }
+  .gv-btn:hover { filter: brightness(1.1); }
+  .gv-btn:active { transform: scale(.97); }
+  .gv-btn-ghost { display: inline-block; background: transparent; color: var(--ink); border: 1px solid var(--line); font-weight: 800; font-size: 15px; padding: 13px 26px; border-radius: 999px; text-decoration: none; }
+  .gv-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .gv-stats { display: flex; gap: 10px 26px; justify-content: center; flex-wrap: wrap; color: var(--dim); font-size: 13.5px; font-weight: 700; }
+  .gv-stats b { color: var(--accent); }
+  .gv-demo { max-width: 520px; margin: 36px auto 0; border: 3px solid var(--line); border-radius: var(--radius); padding: 14px; background: var(--bg2); display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 62px); grid-template-areas: "d-h d-h d-h" "d-n d-m d-a" "d-f d-f d-f"; }
+  .gv-demo i { border-radius: 8px; font-style: normal; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; color: #12142b; }
+  .gv-d-h { grid-area: d-h; background: #FF7F00; }
+  .gv-d-n { grid-area: d-n; background: #118ab2; }
+  .gv-d-m { grid-area: d-m; background: #ffd166; }
+  .gv-d-a { grid-area: d-a; background: #06d6a0; }
+  .gv-d-f { grid-area: d-f; background: #ef476f; }
+  .gv-section { padding: 40px 0; }
+  .gv-section h2 { text-align: center; font-size: 26px; margin: 0 0 8px; }
+  .gv-lead { text-align: center; color: var(--dim); margin: 0 auto 28px; max-width: 620px; line-height: 1.6; }
+  .gv-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .gv-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .gv-step { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #12142b; font-weight: 900; font-size: 14px; margin-bottom: 12px; }
+  .gv-card h3 { margin: 0 0 8px; font-size: 16px; color: var(--accent2); }
+  .gv-card p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--dim); }
+  .gv-levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .gv-level { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; text-decoration: none; display: block; transition: transform .12s ease, border-color .12s ease; }
+  .gv-level:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .gv-level b { color: var(--accent); font-size: 13px; }
+  .gv-level h3 { margin: 4px 0 6px; font-size: 15px; color: var(--ink); }
+  .gv-level span { font-size: 12.5px; color: var(--dim); }
+  .gv-faq { max-width: 720px; margin: 0 auto; display: grid; gap: 10px; }
+  .gv-faq details { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
+  .gv-faq summary { cursor: pointer; font-weight: 800; font-size: 15px; }
+  .gv-faq p { color: var(--dim); font-size: 14px; line-height: 1.65; margin: 10px 0 2px; }
+  .gv-faq a { color: var(--accent); }
+  .gv-built { text-align: center; padding: 16px 24px 4px; color: var(--dim); font-size: 14px; line-height: 1.6; }
+  .gv-built a { color: var(--accent); font-weight: 800; text-decoration: none; }
+  .gv-built a:hover { text-decoration: underline; }
+
   /* ---------- footer (TechWebster brand) ---------- */
   .site-footer {
     border-top: 1px solid var(--line);
@@ -248,10 +296,75 @@
 
   #selftest-stage { display: contents; }
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is GRIDVILLE?","acceptedAnswer":{"@type":"Answer","text":"GRIDVILLE is a free browser game by TechWebster that teaches CSS Grid by doing: you build a city across 8 hands-on layout puzzles, from your first grid-template-columns to a full app-shell layout."}},{"@type":"Question","name":"Do I need to install anything to play GRIDVILLE?","acceptedAnswer":{"@type":"Answer","text":"No. GRIDVILLE runs entirely in your browser with no sign-up, no build step and no dependencies — on desktop and mobile."}},{"@type":"Question","name":"What CSS Grid topics will I learn?","acceptedAnswer":{"@type":"Answer","text":"display: grid, grid-template-columns and rows, fr units, gap, spanning tracks, line numbers including negative lines, grid-template-areas, and the classic header/nav/main/aside/footer app-shell layout."}},{"@type":"Question","name":"Is GRIDVILLE really free?","acceptedAnswer":{"@type":"Answer","text":"Yes — free forever with no account. Your progress saves automatically in your own browser."}},{"@type":"Question","name":"Who built GRIDVILLE?","acceptedAnswer":{"@type":"Answer","text":"TechWebster, a full-stack software studio in Bhubaneswar, India, specialising in React, Next.js and Node.js development."}}]}
+</script>
 </head>
 <body>
-  <a class="skip-link" href="#app">Skip to game</a>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div id="view-landing">
+    <main id="main-content">
+      <section class="gv-hero" aria-labelledby="gv-title">
+        <div class="gv-wrap">
+          <span class="gv-eyebrow">A TechWebster learning game</span>
+          <h1 id="gv-title">Learn <span class="hl">CSS Grid</span> by Building a City</h1>
+          <p class="gv-sub">GRIDVILLE is a free, interactive CSS Grid game. Write real CSS to raise bakeries, towers and town squares across 8 hands-on layout puzzles — no setup, no sign-up, right in your browser.</p>
+          <div class="gv-cta">
+            <a class="gv-btn" href="#play" data-play>▶ Play the game</a>
+            <a class="gv-btn-ghost" href="#gv-levels">Browse the 8 levels</a>
+          </div>
+          <div class="gv-stats"><span><b>8</b> hands-on puzzles</span><span><b>0</b> setup — runs in your browser</span><span><b>Free</b> forever</span></div>
+          <div class="gv-demo" aria-hidden="true">
+            <i class="gv-d-h">Header</i><i class="gv-d-n">Nav</i><i class="gv-d-m">Main</i><i class="gv-d-a">Aside</i><i class="gv-d-f">Footer</i>
+          </div>
+        </div>
+      </section>
+      <section class="gv-section" aria-labelledby="gv-how">
+        <div class="gv-wrap">
+          <h2 id="gv-how">How GRIDVILLE works</h2>
+          <p class="gv-lead">Each level hands you a mission and a dashed blueprint. You write the CSS — the city judges every pixel.</p>
+          <div class="gv-cards">
+            <div class="gv-card"><span class="gv-step">1</span><h3>Read the mission</h3><p>Every level is a city block with a job to do: three shops on Main Street, a hotel spanning two plots, a full app-shell town square.</p></div>
+            <div class="gv-card"><span class="gv-step">2</span><h3>Write real CSS</h3><p>A live editor with a pixel-precise layout oracle. Any valid grid technique passes — areas, line numbers, span, whatever you like.</p></div>
+            <div class="gv-card"><span class="gv-step">3</span><h3>Earn stars and lessons</h3><p>Fewer failed checks means more stars. Every win unlocks a lesson card with real-world uses and pro tips.</p></div>
+          </div>
+        </div>
+      </section>
+      <section class="gv-section" id="gv-levels" aria-labelledby="gv-levels-h">
+        <div class="gv-wrap">
+          <h2 id="gv-levels-h">The 8 levels</h2>
+          <p class="gv-lead">From your first grid to the boss-level app shell. Click any level to jump straight in.</p>
+          <div class="gv-levels">
+            <a class="gv-level" href="#play" data-play data-level="1"><b>Level 1</b><h3>Main Street</h3><span>display: grid &amp; grid-template-columns</span></a>
+            <a class="gv-level" href="#play" data-play data-level="2"><b>Level 2</b><h3>Two by Two</h3><span>grid-template-rows &amp; auto-placement</span></a>
+            <a class="gv-level" href="#play" data-play data-level="3"><b>Level 3</b><h3>The Heights</h3><span>fr proportions &amp; spanning rows</span></a>
+            <a class="gv-level" href="#play" data-play data-level="4"><b>Level 4</b><h3>Alley Ways</h3><span>gap</span></a>
+            <a class="gv-level" href="#play" data-play data-level="5"><b>Level 5</b><h3>The Grand Hotel</h3><span>spanning columns</span></a>
+            <a class="gv-level" href="#play" data-play data-level="6"><b>Level 6</b><h3>Skyline Lines</h3><span>grid lines &amp; negative line numbers</span></a>
+            <a class="gv-level" href="#play" data-play data-level="7"><b>Level 7</b><h3>City Blocks</h3><span>grid-template-areas</span></a>
+            <a class="gv-level" href="#play" data-play data-level="8"><b>Level 8 · Boss</b><h3>Town Square</h3><span>the full app-shell layout</span></a>
+          </div>
+        </div>
+      </section>
+      <section class="gv-section" aria-labelledby="gv-faq-h">
+        <div class="gv-wrap">
+          <h2 id="gv-faq-h">Questions, answered</h2>
+          <p class="gv-lead">Everything you need to know before you build.</p>
+          <div class="gv-faq">
+            <details><summary>What is GRIDVILLE?</summary><p>GRIDVILLE is a free browser game by TechWebster that teaches CSS Grid by doing: you build a city across 8 hands-on layout puzzles, from your first grid-template-columns to a full app-shell layout.</p></details>
+            <details><summary>Do I need to install anything?</summary><p>No. GRIDVILLE runs entirely in your browser with no sign-up, no build step and no dependencies — on desktop and mobile.</p></details>
+            <details><summary>What CSS Grid topics will I learn?</summary><p>display: grid, grid-template-columns and rows, fr units, gap, spanning tracks, line numbers including negative lines, grid-template-areas, and the classic header / nav / main / aside / footer app-shell layout.</p></details>
+            <details><summary>Is GRIDVILLE really free?</summary><p>Yes — free forever with no account. Your progress saves automatically in your own browser.</p></details>
+            <details><summary>Who built GRIDVILLE?</summary><p><a href="https://www.techwebster.com/">TechWebster</a>, a full-stack software studio in Bhubaneswar, India, specialising in React, Next.js and Node.js development.</p></details>
+          </div>
+        </div>
+      </section>
+      <p class="gv-built">Built by <a href="https://www.techwebster.com/">TechWebster</a> — a full-stack software studio crafting web experiences for global teams.</p>
+    </main>
+  </div>
+  <div id="view-game" hidden>
   <header class="topbar">
+    <a class="home-link" href="#" data-home>← Home</a>
     <h1>GRIDVILLE<span class="visually-hidden"> — Learn CSS Grid by Building a City</span></h1>
     <span class="tagline">Build a city. Master CSS Grid. Write real CSS — the city judges you.</span>
     <span class="progress" id="progress"></span>
@@ -284,6 +397,7 @@
       </details>
     </section>
   </main>
+  </div>
 
   <footer class="site-footer">
     <span class="brandmark">TechWebster</span>
