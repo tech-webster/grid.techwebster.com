@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+.omo/
 .unlazy/
 .unlazy-hook-state.json
 chrome.log
