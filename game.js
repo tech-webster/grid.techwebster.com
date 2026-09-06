@@ -98,7 +98,7 @@
   // `#modal { ... }` rule would break page chrome. Drop any rule whose
   // selector targets page chrome or the universal selector. All canonical
   // solutions only use `.board` and zone ids, so legit CSS is unaffected.
-  var PAGE_CHROME_RE = /(^|[^a-z0-9_-])(body(?![a-z0-9_-])|html(?![a-z0-9_-])|head(?![a-z0-9_-])|#modal|#editor|#confetti|#ghost|#level-strip|#progress|#feedback|#hintbox|#hint-summary|#hint-pre|#player-style|#btn-check|#btn-reset|#btn-next|#btn-stay|#level-label|#app|#view-landing|#view-game|#main-content|#gv-levels|\.pill|\.panel|\.topbar|\.modal-card|\.gz|\.ghost-layer|\.lesson|\.btnrow|\.stage|\.board-wrap|\.site-footer|\.skip-link|\.home-link|\.gv-[a-z0-9_-]+|\*)/i;
+  var PAGE_CHROME_RE = /(^|[^a-z0-9_-])(body(?![a-z0-9_-])|html(?![a-z0-9_-])|head(?![a-z0-9_-])|#modal|#editor|#confetti|#ghost|#level-strip|#progress|#feedback|#hintbox|#hint-summary|#hint-pre|#player-style|#btn-check|#btn-reset|#btn-next|#btn-stay|#level-label|#app|#view-landing|#view-game|#main-content|#gv-levels|#gv-typed|#build-bar|#build-fill|\.pill|\.panel|\.topbar|\.modal-card|\.gz|\.ghost-layer|\.lesson|\.btnrow|\.stage|\.board-wrap|\.site-footer|\.skip-link|\.home-link|\.build-bar|\.gv-[a-z0-9_-]+|\*)/i;
   var BARE_ELEMENT_RE = /(^|[\s,>+~])(div|span|header|footer|nav|main|aside|section|article|figure|figcaption|button|textarea|input|details|summary|p|h1|h2|h3|ul|li|a|code|i|body|html|head|style)(?![a-z0-9_-])/i;
 
   function sanitizePlayerCSS(css) {
@@ -339,6 +339,10 @@
       el.strip.appendChild(b);
     });
     el.progress.textContent = done + '/' + LEVELS.length + ' built \u00B7 ' + starSum + ' stars';
+    var fill = document.getElementById('build-fill');
+    if (fill) fill.style.width = (done / LEVELS.length * 100) + '%';
+    var bar = document.getElementById('build-bar');
+    if (bar) bar.setAttribute('aria-valuenow', done);
   }
 
   // ---------- confetti ----------
@@ -455,6 +459,23 @@
     var h = e.target && e.target.closest ? e.target.closest('[data-home]') : null;
     if (h) { e.preventDefault(); showLandingView(); }
   });
+
+  var typedEl = document.getElementById('gv-typed');
+  if (typedEl) {
+    var fullText = typedEl.getAttribute('data-text') || typedEl.textContent;
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (calm) {
+      typedEl.textContent = fullText;
+    } else {
+      typedEl.textContent = '';
+      var tick = 0;
+      var typer = setInterval(function () {
+        tick++;
+        typedEl.textContent = fullText.slice(0, tick);
+        if (tick >= fullText.length) clearInterval(typer);
+      }, 60);
+    }
+  }
 
   // ---------- selftest (headless end-to-end gate: ?selftest=1) ----------
 
