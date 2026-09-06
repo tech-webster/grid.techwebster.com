@@ -87,8 +87,8 @@
       solution: '.board {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: repeat(2, 1fr);\n  gap: 24px;\n}',
       requires: ['gap'],
       asserts: [
-        { on: 'board', prop: 'columnGap', op: '>=', value: 12 },
-        { on: 'board', prop: 'rowGap', op: '>=', value: 12 }
+        { on: 'board', prop: 'columnGap', op: '==', value: '24px' },
+        { on: 'board', prop: 'rowGap', op: '==', value: '24px' }
       ],
       lesson: {
         learned: 'gap puts space between tracks — never at the outer edges, and it never doubles up where two gaps would meet. You can also write row-gap and column-gap separately.',
@@ -185,7 +185,10 @@
       starter: '.board {\n  /* The app shell: areas + gap + a 1fr 2fr 1fr middle row of columns */\n}\n\n#header { }\n#nav    { }\n#main   { }\n#aside  { }\n#footer { }\n',
       solution: '.board {\n  display: grid;\n  gap: 16px;\n  grid-template-columns: 1fr 2fr 1fr;\n  grid-template-rows: 1fr 2fr 1fr;\n  grid-template-areas:\n    "header header header"\n    "nav main aside"\n    "footer footer footer";\n}\n#header { grid-area: header; }\n#nav    { grid-area: nav; }\n#main   { grid-area: main; }\n#aside  { grid-area: aside; }\n#footer { grid-area: footer; }',
       requires: ['grid-template-areas', 'gap'],
-      asserts: [],
+      asserts: [
+        { on: 'board', prop: 'columnGap', op: '==', value: '16px' },
+        { on: 'board', prop: 'rowGap', op: '==', value: '16px' }
+      ],
       lesson: {
         learned: 'You just built the app shell: the layout behind nearly every dashboard and website. Named areas + fr weights + gap is the whole recipe — and it reads like the design it produces.',
         wild: 'In the wild: this exact pattern (with different names) powers Gmail, Stripe dashboards, and most admin UIs.',
