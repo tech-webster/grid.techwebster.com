@@ -41,6 +41,7 @@
     --ok: #06d6a0;
     --danger: #ef476f;
     --radius: 14px;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -106,6 +107,8 @@
     padding: 0 24px; margin: 0 0 10px; color: var(--accent);
     font-size: 15px; font-weight: 800; text-align: center;
   }
+  .build-bar { width: calc(100% - 48px); max-width: 472px; height: 6px; margin: 2px auto 18px; background: var(--line); border-radius: 3px; }
+  #build-fill { display: block; height: 100%; width: 0; border-radius: 3px; background: var(--accent); transition: width .3s ease; }
 
   /* ---------- board ---------- */
   .board-wrap { position: relative; }
@@ -197,25 +200,36 @@
   /* ---------- landing ---------- */
   #view-game[hidden], #view-landing[hidden] { display: none !important; }
   .gv-wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
-  .gv-hero { text-align: center; padding: 76px 24px 44px; max-width: 880px; margin: 0 auto; }
-  .gv-eyebrow { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; margin-bottom: 22px; }
-  .gv-hero h1 { margin: 0 0 16px; font-size: clamp(34px, 6vw, 58px); line-height: 1.08; font-weight: 900; letter-spacing: -1px; }
-  .gv-hero h1 .hl { color: var(--accent2); text-shadow: 0 0 26px rgba(255, 209, 102, .3); }
-  .gv-sub { color: var(--dim); font-size: 16.5px; line-height: 1.65; margin: 0 auto 28px; max-width: 640px; }
-  .gv-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 26px; }
-  .gv-btn { display: inline-block; background: var(--accent); color: #12142b; font-weight: 900; font-size: 16px; padding: 14px 30px; border-radius: 999px; text-decoration: none; transition: filter .15s ease, transform .12s ease; }
+  .gv-hero { padding: 76px 0 44px; background-image: linear-gradient(rgba(238,240,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(238,240,255,.05) 1px, transparent 1px); background-size: 34px 34px; }
+  .gv-hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+  @media (max-width: 900px) { .gv-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; } }
+  .gv-eyebrow { display: inline-block; font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+  .gv-hero h1 { margin: 0 0 14px; font-size: clamp(38px, 6vw, 62px); line-height: 1.04; font-weight: 900; letter-spacing: -1.5px; text-wrap: balance; }
+  .gv-hero h1 .hl { color: var(--accent); text-shadow: 0 0 26px rgba(255, 127, 0, .35); }
+  .gv-typed { font-family: var(--mono); color: var(--accent); font-size: 17px; font-weight: 700; margin: 0 0 18px; min-height: 1.6em; }
+  .gv-typed::after { content: ""; display: inline-block; width: 3px; height: 1.1em; margin-left: 3px; vertical-align: -2px; background: var(--accent); animation: gvblink 1s steps(2, start) infinite; }
+  @keyframes gvblink { 50% { opacity: 0; } }
+  .gv-sub { color: var(--dim); font-size: 16.5px; line-height: 1.65; margin: 0 0 22px; max-width: 560px; }
+  .gv-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+  .gv-btn { display: inline-block; background: var(--accent); color: #12142b; font-weight: 900; font-size: 16px; padding: 15px 30px; border-radius: 12px; text-decoration: none; transition: filter .15s ease, transform .12s ease; }
   .gv-btn:hover { filter: brightness(1.1); }
   .gv-btn:active { transform: scale(.97); }
   .gv-btn-ghost { display: inline-block; background: transparent; color: var(--ink); border: 1px solid var(--line); font-weight: 800; font-size: 15px; padding: 13px 26px; border-radius: 999px; text-decoration: none; }
   .gv-btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-  .gv-stats { display: flex; gap: 10px 26px; justify-content: center; flex-wrap: wrap; color: var(--dim); font-size: 13.5px; font-weight: 700; }
+  .gv-stats { display: flex; gap: 10px 26px; flex-wrap: wrap; color: var(--dim); font-size: 13.5px; font-weight: 700; font-family: var(--mono); letter-spacing: .5px; }
   .gv-stats b { color: var(--accent); }
+  .gv-spec { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 52px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .gv-spec > div { display: flex; align-items: baseline; gap: 14px; padding: 13px 18px; }
+  .gv-spec > div + div { border-left: 1px solid var(--line); }
+  .gv-spec span { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); }
+  .gv-spec b { font-family: var(--mono); font-size: 14px; color: var(--accent); }
+  @media (max-width: 640px) { .gv-spec { grid-template-columns: minmax(0, 1fr); } .gv-spec > div + div { border-left: 0; border-top: 1px solid var(--line); } }
   .gv-topics { color: var(--ink); font-size: 15px; line-height: 2; margin: 0 auto 26px; }
-  .gv-topics code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #141736; border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; font-size: 13px; color: var(--accent2); white-space: nowrap; }
-  .gv-figure { max-width: 520px; margin: 36px auto 0; border: 3px solid var(--line); border-radius: var(--radius); background: var(--bg2); overflow: hidden; }
+  .gv-topics code { font-family: var(--mono); background: #141736; border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; font-size: 13px; color: var(--accent2); white-space: nowrap; }
+  .gv-figure { max-width: 560px; margin: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--bg2); overflow: hidden; box-shadow: 0 24px 70px rgba(0, 0, 0, .5); }
   .gv-figbar { display: flex; justify-content: space-between; padding: 10px 16px; font-size: 11px; font-weight: 800; letter-spacing: 2px; color: var(--dim); border-bottom: 1px solid var(--line); }
   .gv-figure figcaption { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--line); text-align: left; }
-  .gv-figure figcaption code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.6; color: #d6f5ff; }
+  .gv-figure figcaption code { font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: #d6f5ff; }
   .gv-figure figcaption code span { color: var(--accent); }
   .gv-figlive { color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: 2px; white-space: nowrap; }
   .gv-demo { margin: 0; border: 0; border-radius: 0; background: transparent; padding: 14px; display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 62px); grid-template-areas: "d-h d-h d-h" "d-n d-m d-a" "d-f d-f d-f"; }
@@ -228,21 +242,25 @@
   .gv-section { padding: 40px 0; }
   .gv-section h2 { text-align: center; font-size: 26px; margin: 0 0 8px; }
   .gv-lead { text-align: center; color: var(--dim); margin: 0 auto 28px; max-width: 620px; line-height: 1.6; }
-  .gv-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-  .gv-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
-  .gv-step { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #12142b; font-weight: 900; font-size: 14px; margin-bottom: 12px; }
-  .gv-card h3 { margin: 0 0 8px; font-size: 16px; color: var(--accent2); }
-  .gv-card p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--dim); }
+  .gv-steps { max-width: 760px; margin: 0 auto; }
+  .gv-step { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 20px; padding: 24px 4px; border-top: 1px solid var(--line); }
+  .gv-step:last-child { border-bottom: 1px solid var(--line); }
+  .gv-step > span { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--accent); letter-spacing: 1px; padding-top: 2px; }
+  .gv-step h3 { margin: 0 0 8px; font-size: 17px; }
+  .gv-step p { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--dim); }
   .gv-levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
   .gv-level { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; text-decoration: none; display: block; transition: transform .12s ease, border-color .12s ease; }
   .gv-level:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .gv-level b { color: var(--accent); font-size: 13px; }
+  .gv-level b { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); }
   .gv-level h3 { margin: 4px 0 6px; font-size: 15px; color: var(--ink); }
+  .gv-level h3::after { content: " →"; color: var(--accent); opacity: 0; transition: opacity .15s ease; }
+  .gv-level:hover h3::after, .gv-level:focus-visible h3::after { opacity: 1; }
   .gv-level span { font-size: 12.5px; color: var(--dim); }
   .gv-faq { max-width: 720px; margin: 0 auto; display: grid; gap: 10px; }
   .gv-faq details { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
   .gv-faq summary { cursor: pointer; font-weight: 800; font-size: 15px; }
   .gv-faq p { color: var(--dim); font-size: 14px; line-height: 1.65; margin: 10px 0 2px; }
+  .gv-faq details[open] { border-color: var(--accent); }
   .gv-faq a { color: var(--accent); }
   .gv-built { text-align: center; padding: 16px 24px 4px; color: var(--dim); font-size: 14px; line-height: 1.6; }
   .gv-built a { color: var(--accent); font-weight: 800; text-decoration: none; }
@@ -300,6 +318,7 @@
     #confetti { display: none; }
     .board.shake { animation: none; }
     #modal.open .modal-card, #modal-stars svg { animation: none; }
+    .gv-typed::after { animation: none; }
   }
 
   #selftest-stage { display: contents; }
@@ -313,16 +332,19 @@
   <div id="view-landing">
     <main id="main-content">
       <section class="gv-hero" aria-labelledby="gv-title">
-        <div class="gv-wrap">
-          <span class="gv-eyebrow">A TechWebster learning game</span>
-          <h1 id="gv-title">Learn <span class="hl">CSS Grid</span> by Building a City</h1>
-          <p class="gv-sub">GRIDVILLE is a free, interactive CSS Grid game. Write real CSS to raise bakeries, towers and town squares across 8 hands-on layout puzzles — no setup, no sign-up, right in your browser.</p>
-          <p class="gv-topics"><code>grid-template-columns</code> <code>fr units</code> <code>gap</code> <code>span</code> <code>areas</code><br>One city to put them all into practice.</p>
-          <div class="gv-cta">
-            <a class="gv-btn" href="#play" data-play>▶ Play the game</a>
-            <a class="gv-btn-ghost" href="#gv-levels">Browse the 8 levels</a>
+        <div class="gv-wrap gv-hero-grid">
+          <div class="gv-hero-copy">
+            <span class="gv-eyebrow">GRIDVILLE / by TechWebster</span>
+            <h1 id="gv-title">Learn <span class="hl">CSS Grid</span> by building a city.</h1>
+            <p class="gv-typed" id="gv-typed" data-text="One grid at a time.">One grid at a time.</p>
+            <p class="gv-sub">GRIDVILLE is a free, interactive CSS Grid game. Write real CSS to raise bakeries, towers and town squares across 8 hands-on layout puzzles — no setup, no sign-up, right in your browser.</p>
+            <p class="gv-topics"><code>grid-template-columns</code> <code>fr units</code> <code>gap</code> <code>span</code> <code>areas</code><br>One city to put them all into practice.</p>
+            <div class="gv-cta">
+              <a class="gv-btn" href="#play" data-play>Play the game ↗</a>
+              <a class="gv-btn-ghost" href="#gv-levels">Browse the 8 levels</a>
+            </div>
+            <div class="gv-stats"><span><b>8</b> hands-on puzzles</span><span><b>0</b> setup — runs in your browser</span><span><b>Free</b> forever</span></div>
           </div>
-          <div class="gv-stats"><span><b>8</b> hands-on puzzles</span><span><b>0</b> setup — runs in your browser</span><span><b>Free</b> forever</span></div>
           <figure class="gv-figure" aria-label="GRIDVILLE preview: a city block built with CSS Grid">
             <div class="gv-figbar"><span>GRIDVILLE</span><span>01 / 08</span></div>
             <div class="gv-demo" aria-hidden="true">
@@ -331,15 +353,22 @@
             <figcaption><code><span>display</span>: grid;<br><span>grid-template-columns</span>: repeat(3, 1fr);</code><span class="gv-figlive">Your city awaits ↗</span></figcaption>
           </figure>
         </div>
+        <div class="gv-wrap">
+          <div class="gv-spec" aria-label="Project specifications">
+            <div><span>Project</span><b>grid-city</b></div>
+            <div><span>Sheets</span><b>01 – 08</b></div>
+            <div><span>Drawn by</span><b>You</b></div>
+          </div>
+        </div>
       </section>
       <section class="gv-section" aria-labelledby="gv-how">
         <div class="gv-wrap">
           <h2 id="gv-how">How GRIDVILLE works</h2>
           <p class="gv-lead">Each level hands you a mission and a dashed blueprint. You write the CSS — the city judges every pixel.</p>
-          <div class="gv-cards">
-            <div class="gv-card"><span class="gv-step">1</span><h3>Read the mission</h3><p>Every level is a city block with a job to do: three shops on Main Street, a hotel spanning two plots, a full app-shell town square.</p></div>
-            <div class="gv-card"><span class="gv-step">2</span><h3>Write real CSS</h3><p>A live editor with a pixel-precise layout oracle. Any valid grid technique passes — areas, line numbers, span, whatever you like.</p></div>
-            <div class="gv-card"><span class="gv-step">3</span><h3>Earn stars and lessons</h3><p>Fewer failed checks means more stars. Every win unlocks a lesson card with real-world uses and pro tips.</p></div>
+          <div class="gv-steps">
+            <div class="gv-step"><span>01</span><div><h3>Read the mission</h3><p>Every level is a city block with a job to do: three shops on Main Street, a hotel spanning two plots, a full app-shell town square.</p></div></div>
+            <div class="gv-step"><span>02</span><div><h3>Write real CSS</h3><p>A live editor with a pixel-precise layout oracle. Any valid grid technique passes — areas, line numbers, span, whatever you like.</p></div></div>
+            <div class="gv-step"><span>03</span><div><h3>Earn stars and lessons</h3><p>Fewer failed checks means more stars. Every win unlocks a lesson card with real-world uses and pro tips.</p></div></div>
           </div>
         </div>
       </section>
@@ -386,6 +415,7 @@
 
   <nav id="level-strip" aria-label="Levels"></nav>
   <p class="level-label" id="level-label"></p>
+  <div class="build-bar" id="build-bar" role="progressbar" aria-label="City progress" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><i id="build-fill"></i></div>
 
   <main class="stage" id="app">
     <section class="board-wrap" aria-label="City board">
