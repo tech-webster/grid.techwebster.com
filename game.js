@@ -99,7 +99,7 @@
   // selector targets page chrome or the universal selector. All canonical
   // solutions only use `.board` and zone ids, so legit CSS is unaffected.
   var PAGE_CHROME_RE = /(^|[^a-z0-9_-])(body(?![a-z0-9_-])|html(?![a-z0-9_-])|head(?![a-z0-9_-])|#modal|#editor|#confetti|#ghost|#level-strip|#progress|#feedback|#hintbox|#hint-summary|#hint-pre|#player-style|#btn-check|#btn-reset|#btn-next|#btn-stay|#level-label|#app|#view-landing|#view-game|#main-content|#gv-levels|\.pill|\.panel|\.topbar|\.modal-card|\.gz|\.ghost-layer|\.lesson|\.btnrow|\.stage|\.board-wrap|\.site-footer|\.skip-link|\.home-link|\.gv-[a-z0-9_-]+|\*)/i;
-  var BARE_ELEMENT_RE = /(^|[\s,>+~])(div|span|header|footer|nav|main|aside|section|article|button|textarea|input|details|summary|p|h1|h2|h3|ul|li|body|html|head|style)(?![a-z0-9_-])/i;
+  var BARE_ELEMENT_RE = /(^|[\s,>+~])(div|span|header|footer|nav|main|aside|section|article|figure|figcaption|button|textarea|input|details|summary|p|h1|h2|h3|ul|li|a|code|i|body|html|head|style)(?![a-z0-9_-])/i;
 
   function sanitizePlayerCSS(css) {
     var out = [];
