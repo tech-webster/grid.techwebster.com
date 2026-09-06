@@ -151,7 +151,7 @@ function checkEngine() {
 
 function checkHtml() {
   var html = fs.readFileSync(path.join(ROOT, 'play/index.html'), 'utf8');
-  ok(/<title>[^<]*GRIDVILLE/i.test(html), 'title must mention GRIDVILLE');
+  ok(/<title>[^<]*grid\.techwebster\.com/i.test(html), 'title must mention grid.techwebster.com');
   ok(html.indexOf('name="viewport"') !== -1, 'viewport meta required');
   ok(html.indexOf('id="board"') !== -1, '#board required');
   ok(html.indexOf('id="ghost"') !== -1, '#ghost required');

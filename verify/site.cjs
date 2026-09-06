@@ -19,7 +19,7 @@ const levels = require('../levels.js');
  await page.getByRole('button',{name:'Pause animation'}).click();const frozen=await page.locator('#preview-columns').textContent();await page.waitForTimeout(300);assert.equal(await page.locator('#preview-columns').textContent(),frozen);
  await page.emulateMedia({reducedMotion:'reduce'});await page.reload();assert.equal(await page.locator('#preview-columns').textContent(),'1fr 1fr 1fr');await page.waitForTimeout(300);assert.equal(await page.locator('#preview-columns').textContent(),'1fr 1fr 1fr');
  await page.emulateMedia({reducedMotion:'no-preference'});
- await page.getByRole('link',{name:'Play GRIDVILLE'}).click();assert.equal(new URL(page.url()).pathname,'/play/');
+ await page.getByRole('link',{name:'Play game'}).click();assert.equal(new URL(page.url()).pathname,'/play/');
  await page.reload();assert(await page.locator('#editor').isVisible());
  await page.screenshot({path:path.join(shots,'game-desktop.png'),fullPage:true});
  await page.getByRole('button',{name:'How to play',exact:true}).click();assert(await page.locator('#how-dialog').isVisible());await page.keyboard.press('Escape');assert.equal(await page.evaluate(()=>document.activeElement.id),'how-open');

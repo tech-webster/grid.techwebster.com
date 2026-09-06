@@ -1,4 +1,4 @@
-# GRIDVILLE refresh
+# grid.techwebster.com refresh
 
 Brand verified 6 September 2026 against https://www.techwebster.com/ and its current stylesheet. The company is the full-stack software studio in Bhubaneswar, Odisha. Its linked LinkedIn profile (https://www.linkedin.com/company/tech-webster/) and DEV profile (https://dev.to/techwebster) confirm the domain and identity. Search also returned TechWebsters at techwebsters.org; that is a different business and was not used.
 
