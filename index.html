@@ -3,7 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GRIDVILLE — build a city, master CSS Grid</title>
+<title>GRIDVILLE — Learn CSS Grid by Building a City | TechWebster</title>
+<meta name="description" content="GRIDVILLE by TechWebster is a free interactive game that teaches CSS Grid. Solve 8 hands-on layout puzzles — grid-template-columns, fr units, gap, spans and areas — right in your browser.">
+<link rel="canonical" href="https://grid.techwebster.com/">
+<meta name="author" content="TechWebster">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#FF7F00">
+<meta name="color-scheme" content="dark">
+<meta name="keywords" content="learn CSS Grid, CSS Grid game, CSS Grid tutorial, interactive CSS learning, CSS Grid practice, grid-template-columns, fr units, TechWebster">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TechWebster">
+<meta property="og:title" content="GRIDVILLE — Learn CSS Grid by Building a City | TechWebster">
+<meta property="og:description" content="Build a city. Master CSS Grid. A free interactive CSS Grid game by TechWebster with 8 hands-on layout puzzles.">
+<meta property="og:url" content="https://grid.techwebster.com/">
+<meta property="og:image" content="https://techwebster.com/opengraph-image">
+<meta property="og:image:alt" content="GRIDVILLE by TechWebster — Full-Stack Software Studio">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TechWebster">
+<meta name="twitter:title" content="GRIDVILLE — Learn CSS Grid by Building a City | TechWebster">
+<meta name="twitter:description" content="Build a city. Master CSS Grid. A free interactive CSS Grid game by TechWebster.">
+<meta name="twitter:image" content="https://techwebster.com/opengraph-image">
+<meta name="twitter:image:alt" content="GRIDVILLE by TechWebster — Full-Stack Software Studio">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Cg%3E%3Crect x='11' y='11' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='26' y='11' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='41' y='11' width='12' height='12' rx='3' fill='%23ffd166'/%3E%3Crect x='11' y='26' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='26' y='26' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='41' y='26' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='11' y='41' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='26' y='41' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3Crect x='41' y='41' width='12' height='12' rx='3' fill='%23FF7F00'/%3E%3C/g%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"GRIDVILLE","alternateName":"GRIDVILLE by TechWebster","url":"https://grid.techwebster.com/","applicationCategory":"EducationalApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0"},"inLanguage":"en","author":{"@type":"Organization","name":"TechWebster","url":"https://www.techwebster.com/"},"description":"GRIDVILLE is a free interactive game that teaches CSS Grid through 8 hands-on layout puzzles."},{"@type":"Organization","name":"TechWebster","url":"https://www.techwebster.com/","logo":"https://techwebster.com/logo.svg","sameAs":["https://www.facebook.com/people/Tech-Webster/61583475278777/","https://www.linkedin.com/company/tech-webster/","https://www.instagram.com/tech_webster","https://www.reddit.com/user/TechWebster/","https://dev.to/techwebster"]}]}
+</script>
 <style>
   :root {
     --bg: #12142b;
@@ -12,12 +36,16 @@
     --line: #34396e;
     --ink: #eef0ff;
     --dim: #9aa0d8;
-    --accent: #06d6a0;
+    --accent: #FF7F00;
     --accent2: #ffd166;
+    --ok: #06d6a0;
     --danger: #ef476f;
     --radius: 14px;
   }
   * { box-sizing: border-box; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .skip-link { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--accent); color: #12142b; font-weight: 800; padding: 10px 16px; border-radius: 10px; text-decoration: none; transition: top .15s ease; }
+  .skip-link:focus { top: 12px; }
   html, body { margin: 0; padding: 0; }
   body {
     background: radial-gradient(1200px 600px at 70% -10%, #2a2f66 0%, var(--bg) 55%);
@@ -38,6 +66,8 @@
   }
   .topbar .tagline { color: var(--dim); font-size: 13px; }
   .topbar .progress { margin-left: auto; font-size: 13px; color: var(--accent); font-weight: 700; }
+  .topbar .brand { color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+  .topbar .brand:hover { text-decoration: underline; }
 
   /* ---------- level strip ---------- */
   #level-strip { display: flex; gap: 8px; flex-wrap: wrap; padding: 6px 24px 14px; }
@@ -51,8 +81,8 @@
   .pill i { font-style: normal; font-size: 11px; letter-spacing: -2px; display: inline-flex; gap: 2px; }
   .pill:hover { transform: translateY(-2px); border-color: var(--accent2); }
   .pill:active { transform: translateY(0) scale(.96); }
-  .pill.current { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(6, 214, 160, .35); }
-  .pill.done { background: #143328; border-color: var(--accent); }
+  .pill.current { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(255, 127, 0, .35); }
+  .pill.done { background: #143328; border-color: var(--ok); }
 
   /* ---------- layout ---------- */
   .stage {
@@ -109,7 +139,7 @@
   }
   #hint-summary svg { width: 14px; height: 14px; vertical-align: -2px; }
   .cell .name { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; opacity: .8; }
-  .cell.ok { box-shadow: 0 0 0 3px var(--accent), inset 0 -3px 0 rgba(0, 0, 0, .18); }
+  .cell.ok { box-shadow: 0 0 0 3px var(--ok), inset 0 -3px 0 rgba(0, 0, 0, .18); }
 
   .ghost-layer { position: absolute; inset: 0; pointer-events: none; }
   .gz {
@@ -120,7 +150,7 @@
     transition: border-color .15s ease, background .15s ease;
   }
   .gz span { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: rgba(238, 240, 255, .55); }
-  .gz.ok { border-color: var(--accent); background: rgba(6, 214, 160, .08); }
+  .gz.ok { border-color: var(--ok); background: rgba(6, 214, 160, .08); }
   .gz.ok span { opacity: 0; } /* zone matched — the building's own label takes over, no double text */
 
   /* ---------- editor panel ---------- */
@@ -161,6 +191,19 @@
     background: #141736; border: 1px dashed var(--line); border-radius: 10px;
     padding: 10px; font-size: 12.5px; overflow-x: auto;
   }
+
+  /* ---------- footer (TechWebster brand) ---------- */
+  .site-footer {
+    border-top: 1px solid var(--line);
+    padding: 18px 24px 30px;
+    display: flex; gap: 8px 22px; flex-wrap: wrap; align-items: baseline;
+  }
+  .site-footer .brandmark { color: var(--ink); font-weight: 900; letter-spacing: 3px; font-size: 13px; }
+  .site-footer .foot-tag { flex: 1 1 220px; }
+  .site-footer nav { display: flex; gap: 16px; flex-wrap: wrap; }
+  .site-footer, .site-footer a { color: var(--dim); font-size: 12.5px; }
+  .site-footer a { text-decoration: none; }
+  .site-footer a:hover { color: var(--accent); }
 
   /* ---------- modal ---------- */
   #modal {
@@ -207,10 +250,12 @@
 </style>
 </head>
 <body>
+  <a class="skip-link" href="#app">Skip to game</a>
   <header class="topbar">
-    <h1>GRIDVILLE</h1>
+    <h1>GRIDVILLE<span class="visually-hidden"> — Learn CSS Grid by Building a City</span></h1>
     <span class="tagline">Build a city. Master CSS Grid. Write real CSS — the city judges you.</span>
     <span class="progress" id="progress"></span>
+    <a class="brand" href="https://www.techwebster.com/" target="_blank" rel="noopener">by TechWebster</a>
   </header>
 
   <nav id="level-strip" aria-label="Levels"></nav>
@@ -239,6 +284,18 @@
       </details>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <span class="brandmark">TechWebster</span>
+    <span class="foot-tag">Full-Stack Software Studio · Crafted in Bhubaneswar for global teams</span>
+    <nav aria-label="TechWebster products">
+      <a href="https://www.techwebster.com/products">Products</a>
+      <a href="https://code.techwebster.com/">Code Editor</a>
+      <a href="https://crm.techwebster.com/">CRM</a>
+      <a href="mailto:info@techwebster.com">Contact</a>
+    </nav>
+    <span>© 2026 TechWebster · All rights reserved.</span>
+  </footer>
 
   <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-card">
