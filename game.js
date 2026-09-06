@@ -86,7 +86,10 @@
   function loadState() {
     try {
       var raw = localStorage.getItem(SAVE_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        var saved = JSON.parse(raw);
+        if (saved && saved.code && saved.stars && saved.fails) return saved;
+      }
     } catch (e) { /* file:// or private mode — fall through */ }
     return { code: {}, stars: {}, fails: {} };
   }
@@ -335,6 +338,8 @@
       b.className = 'pill' + (i === current ? ' current' : '') + (stars ? ' done' : '');
       b.innerHTML = '<b>' + level.n + '</b>' + (stars ? '<i>' + STAR_ON.repeat(stars) + '</i>' : '');
       b.title = level.title;
+      b.setAttribute('aria-label', 'Level ' + level.n + ': ' + level.title + (stars ? ', ' + stars + ' stars' : ''));
+      if (i === current) b.setAttribute('aria-current', 'step');
       b.addEventListener('click', function () { el.modal.classList.remove('open'); loadLevel(i); });
       el.strip.appendChild(b);
     });
@@ -368,12 +373,6 @@
     debounceTimer = setTimeout(function () { applyAndValidate(true); }, 350);
   });
   el.editor.addEventListener('keydown', function (e) {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      var s = this.selectionStart;
-      this.value = this.value.slice(0, s) + '  ' + this.value.slice(this.selectionEnd);
-      this.selectionStart = this.selectionEnd = s + 2;
-    }
     if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); onCheck(); }
   });
   document.getElementById('btn-check').addEventListener('click', onCheck);
@@ -387,6 +386,11 @@
     focusEditor(false);
   });
   document.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab' && el.modal.classList.contains('open')) {
+      var first = el.btnNext, last = document.getElementById('btn-stay');
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
     if (e.key === 'Escape' && el.modal.classList.contains('open')) {
       el.modal.classList.remove('open');
       focusEditor(false);
@@ -405,77 +409,15 @@
     }, 150);
   });
 
-  // ---------- views (landing <-> game) ----------
-
-  var landingView = document.getElementById('view-landing');
-  var gameView = document.getElementById('view-game');
-  var gameBooted = false;
-
-  function showGameView() {
-    el.modal.classList.remove('open');
-    landingView.hidden = true;
-    gameView.hidden = false;
-    if (location.hash !== '#play') {
-      try { history.replaceState(null, '', '#play'); } catch (e) { location.hash = '#play'; }
-    }
-    if (gameBooted && el.board) {
-      // the board had zero size while hidden — re-measure and re-validate
-      renderGhost(el.ghost, LEVELS[current], el.board);
-      applyAndValidate(true);
-    }
-    try { window.scrollTo(0, 0); } catch (e) {}
-  }
-
-  function showLandingView() {
-    el.modal.classList.remove('open');
-    gameView.hidden = true;
-    landingView.hidden = false;
-    if (location.hash === '#play') {
-      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
-    }
-    try { window.scrollTo(0, 0); } catch (e) {}
-  }
-
   function playAt(i) {
     if (i == null || isNaN(i)) i = Math.min(state.currentLevel || 0, LEVELS.length - 1);
-    i = Math.min(Math.max(i, 0), LEVELS.length - 1);
-    loadLevel(i);
-    gameBooted = true;
-    showGameView();
+    loadLevel(Math.min(Math.max(i, 0), LEVELS.length - 1));
   }
-
-  window.addEventListener('hashchange', function () {
-    if (location.hash === '#play') playAt();
-    else showLandingView();
+  ['how', 'settings'].forEach(function (name) {
+    document.getElementById(name + '-open').addEventListener('click', function () {
+      document.getElementById(name + '-dialog').showModal();
+    });
   });
-  document.addEventListener('click', function (e) {
-    var t = e.target && e.target.closest ? e.target.closest('[data-play]') : null;
-    if (t) {
-      e.preventDefault();
-      var lv = parseInt(t.getAttribute('data-level'), 10);
-      playAt(isNaN(lv) ? undefined : lv - 1);
-      return;
-    }
-    var h = e.target && e.target.closest ? e.target.closest('[data-home]') : null;
-    if (h) { e.preventDefault(); showLandingView(); }
-  });
-
-  var typedEl = document.getElementById('gv-typed');
-  if (typedEl) {
-    var fullText = typedEl.getAttribute('data-text') || typedEl.textContent;
-    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (calm) {
-      typedEl.textContent = fullText;
-    } else {
-      typedEl.textContent = '';
-      var tick = 0;
-      var typer = setInterval(function () {
-        tick++;
-        typedEl.textContent = fullText.slice(0, tick);
-        if (tick >= fullText.length) clearInterval(typer);
-      }, 60);
-    }
-  }
 
   // ---------- selftest (headless end-to-end gate: ?selftest=1) ----------
 
@@ -534,6 +476,6 @@
   } else if (location.hash === '#play') {
     playAt();
   } else {
-    showLandingView();
+    playAt();
   }
 })();

@@ -9,7 +9,7 @@ pixel-by-pixel in real time and shows which zones match.
 
 ## Play
 
-Open `index.html` in any browser (works from `file://`, no server or build step).
+Open `index.html` for the landing page, or `play/index.html` for the game, in any browser (works from `file://`, no server or build step).
 
 | # | Level | Teaches |
 |---|-------|---------|
@@ -44,3 +44,10 @@ node verify/verify.cjs selftest  # end-to-end: real Chrome headless solves all 8
 ```
 
 Gate ledger: `GATES.md` (see `.agents/skills/unlazy/`).
+
+## Website regression checks
+
+`npm install` installs development-only Playwright. No build or runtime dependency is required.
+Run `npm test` for the original checks. Serve the repository root with `python3 -m http.server 4173`, then run `npm run test:site` for navigation, all puzzle solutions, save/reload, keyboard access, animation synchronization, pause, reduced motion, local assets, metadata and mobile overflow. The browser suite uses local Google Chrome on macOS; set `CHROME_PATH` for another installed browser. Screenshots are written to the system temporary directory under `grid-qa`.
+
+See [brand research and production follow-up](BRAND-AND-DELIVERY.md).

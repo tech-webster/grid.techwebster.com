@@ -1,0 +1,1 @@
+{"name":"gridville","private":true,"scripts":{"test":"node verify/verify.cjs levels && node verify/verify.cjs engine && node verify/verify.cjs html && node verify/verify.cjs syntax && node verify/verify.cjs selftest","test:site":"node verify/site.cjs"},"devDependencies":{"playwright":"1.58.2"}}

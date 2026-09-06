@@ -150,7 +150,7 @@ function checkEngine() {
 // ---------------- html ----------------
 
 function checkHtml() {
-  var html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  var html = fs.readFileSync(path.join(ROOT, 'play/index.html'), 'utf8');
   ok(/<title>[^<]*GRIDVILLE/i.test(html), 'title must mention GRIDVILLE');
   ok(html.indexOf('name="viewport"') !== -1, 'viewport meta required');
   ok(html.indexOf('id="board"') !== -1, '#board required');
@@ -160,9 +160,9 @@ function checkHtml() {
   ok(html.indexOf('id="modal"') !== -1, '#modal required');
   ok(html.indexOf('id="player-style"') !== -1, '#player-style required');
   ok(html.indexOf('type="module"') === -1, 'no ES modules — page must work from file://');
-  var iLevels = html.indexOf('src="levels.js"');
-  var iEngine = html.indexOf('src="engine.js"');
-  var iGame = html.indexOf('src="game.js"');
+  var iLevels = html.indexOf('src="../levels.js"');
+  var iEngine = html.indexOf('src="../engine.js"');
+  var iGame = html.indexOf('src="../game.js"');
   ok(iLevels !== -1 && iEngine !== -1 && iGame !== -1, 'all three scripts referenced');
   ok(iLevels < iEngine && iEngine < iGame, 'script order must be levels, engine, game');
   ok(!/TODO|FIXME|lorem ipsum|placeholder text/i.test(html), 'no TODO/placeholder markers');
@@ -172,7 +172,7 @@ function checkHtml() {
 // ---------------- syntax ----------------
 
 function checkSyntax() {
-  ['levels.js', 'engine.js', 'game.js'].forEach(function (f) {
+  ['levels.js', 'engine.js', 'game.js', 'landing.js'].forEach(function (f) {
     var r = cpSync(process.execPath, ['--check', path.join(ROOT, f)], { encoding: 'utf8' });
     ok(r.status === 0, f + ' does not parse: ' + (r.stderr || '').slice(0, 300));
   });
@@ -201,7 +201,7 @@ function checkSelftest() {
     finish('GRIDVILLE-SELFTEST-PASS:8/8');
     return;
   }
-  var url = 'file://' + path.join(ROOT, 'index.html') + '?selftest=1';
+  var url = 'file://' + path.join(ROOT, 'play/index.html') + '?selftest=1';
   var r = cpSync(chrome, [
     '--headless=new', '--disable-gpu', '--no-first-run', '--virtual-time-budget=8000', '--dump-dom', url
   ], { encoding: 'utf8', timeout: 60000, maxBuffer: 20 * 1024 * 1024 });
