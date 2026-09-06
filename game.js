@@ -98,7 +98,7 @@
   // `#modal { ... }` rule would break page chrome. Drop any rule whose
   // selector targets page chrome or the universal selector. All canonical
   // solutions only use `.board` and zone ids, so legit CSS is unaffected.
-  var PAGE_CHROME_RE = /(^|[^a-z0-9_-])(body(?![a-z0-9_-])|html(?![a-z0-9_-])|head(?![a-z0-9_-])|#modal|#editor|#confetti|#ghost|#level-strip|#progress|#feedback|#hintbox|#hint-summary|#hint-pre|#player-style|#btn-check|#btn-reset|#btn-next|#btn-stay|#level-label|#app|\.pill|\.panel|\.topbar|\.modal-card|\.gz|\.ghost-layer|\.lesson|\.btnrow|\.stage|\.board-wrap|\*)/i;
+  var PAGE_CHROME_RE = /(^|[^a-z0-9_-])(body(?![a-z0-9_-])|html(?![a-z0-9_-])|head(?![a-z0-9_-])|#modal|#editor|#confetti|#ghost|#level-strip|#progress|#feedback|#hintbox|#hint-summary|#hint-pre|#player-style|#btn-check|#btn-reset|#btn-next|#btn-stay|#level-label|#app|#view-landing|#view-game|#main-content|#gv-levels|\.pill|\.panel|\.topbar|\.modal-card|\.gz|\.ghost-layer|\.lesson|\.btnrow|\.stage|\.board-wrap|\.site-footer|\.skip-link|\.home-link|\.gv-[a-z0-9_-]+|\*)/i;
   var BARE_ELEMENT_RE = /(^|[\s,>+~])(div|span|header|footer|nav|main|aside|section|article|button|textarea|input|details|summary|p|h1|h2|h3|ul|li|body|html|head|style)(?![a-z0-9_-])/i;
 
   function sanitizePlayerCSS(css) {
@@ -401,6 +401,61 @@
     }, 150);
   });
 
+  // ---------- views (landing <-> game) ----------
+
+  var landingView = document.getElementById('view-landing');
+  var gameView = document.getElementById('view-game');
+  var gameBooted = false;
+
+  function showGameView() {
+    el.modal.classList.remove('open');
+    landingView.hidden = true;
+    gameView.hidden = false;
+    if (location.hash !== '#play') {
+      try { history.replaceState(null, '', '#play'); } catch (e) { location.hash = '#play'; }
+    }
+    if (gameBooted && el.board) {
+      // the board had zero size while hidden — re-measure and re-validate
+      renderGhost(el.ghost, LEVELS[current], el.board);
+      applyAndValidate(true);
+    }
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+
+  function showLandingView() {
+    el.modal.classList.remove('open');
+    gameView.hidden = true;
+    landingView.hidden = false;
+    if (location.hash === '#play') {
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    }
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+
+  function playAt(i) {
+    if (i == null || isNaN(i)) i = Math.min(state.currentLevel || 0, LEVELS.length - 1);
+    i = Math.min(Math.max(i, 0), LEVELS.length - 1);
+    loadLevel(i);
+    gameBooted = true;
+    showGameView();
+  }
+
+  window.addEventListener('hashchange', function () {
+    if (location.hash === '#play') playAt();
+    else showLandingView();
+  });
+  document.addEventListener('click', function (e) {
+    var t = e.target && e.target.closest ? e.target.closest('[data-play]') : null;
+    if (t) {
+      e.preventDefault();
+      var lv = parseInt(t.getAttribute('data-level'), 10);
+      playAt(isNaN(lv) ? undefined : lv - 1);
+      return;
+    }
+    var h = e.target && e.target.closest ? e.target.closest('[data-home]') : null;
+    if (h) { e.preventDefault(); showLandingView(); }
+  });
+
   // ---------- selftest (headless end-to-end gate: ?selftest=1) ----------
 
   function runSelftest() {
@@ -445,7 +500,7 @@
   } else if (params.get('demo')) {
     // scripted demo state for screenshots: ?demo=<level#>&code=<css>
     var demoIdx = Math.min(Math.max(parseInt(params.get('demo'), 10) - 1, 0), LEVELS.length - 1);
-    loadLevel(demoIdx);
+    playAt(demoIdx);
     if (params.get('code')) {
       el.editor.value = decodeURIComponent(params.get('code'));
     } else {
@@ -454,8 +509,10 @@
     var demoResult = applyAndValidate(false);
     if (demoResult.pass) win(LEVELS[current]);
   } else if (params.get('level')) {
-    loadLevel(Math.min(Math.max(parseInt(params.get('level'), 10) - 1, 0), LEVELS.length - 1));
+    playAt(Math.min(Math.max(parseInt(params.get('level'), 10) - 1, 0), LEVELS.length - 1));
+  } else if (location.hash === '#play') {
+    playAt();
   } else {
-    loadLevel(Math.min(state.currentLevel || 0, LEVELS.length - 1));
+    showLandingView();
   }
 })();
